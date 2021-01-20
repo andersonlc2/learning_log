@@ -3,19 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    h3 {
+      margin-right: 20px;
+    }
+    a {
+      text-decoration: none;
+      color: #336699
+    }
+  </style>
   <title>Document</title>
 </head>
 <body>
-  <h3>
-    <a href="{% url 'index' %}">
-      Learning Log
-    </a>
-  </h3>
-  <h3>
-    <a href="{% url 'topics' %}">
-      Topics
-    </a>
-  </h3>
+  <div style='display: flex;'>
+    <h3>
+      <a href="{% url 'learning_logs:index' %}">
+        Learning Log
+      </a>
+    </h3>
+    <h3>
+      <a href="{% url 'learning_logs:topics' %}">
+        Topics
+      </a>
+    </h3>
+    {% if user.is_authenticated %}
+      <h5 style="padding-right: 5px;">Hello, {{ user.username }}.</h5>
+      <h5><a href="{% url 'users:logout' %}">Log out</a></h5>
+    {% else %}
+      <h3>
+        <a href="{% url 'users:register' %}">Register</a> -
+        <a href="{% url 'users:login' %}">Log in</a>
+      </h3>
+    {% endif %}
+  </div>
   
   {% block content %}{% endblock content %}
 
